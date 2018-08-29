@@ -33,41 +33,45 @@ $(function() {
 
 
   describe('The menu', () => {
-
-    it('Should start hiden', () => {
-      const menu = document.querySelector('.menu-hidden').className.split(' ')
-      const isHiden = menu.includes('menu-hidden')
-
-      expect(isHiden).toBe(true)
-
-    })
-
-    it('Menu should be visible when clicked', () => {
-      document.querySelector('.menu-icon-link').click()
-      const menu = document.querySelector('.menu-hidden')
-
-      expect(menu).toBe(null)
-
-      document.querySelector('.menu-icon-link').click()
-
-    })
+    const makeClick = () => document.querySelector('.menu-icon-link').click()
     
+    const getMenu = () => document.getElementsByTagName('body')[0].className
+
+    const isHidden = () => {
+      if(getMenu()) return true
+      return false
+    }
+    
+    it('Should start hiden', () => {
+      hidden = isHidden() 
+      expect(hidden).toBe(true)
+
+    })
+
+    it('Should menu visibility swith when is clicked', () => {
+      makeClick()
+
+      expect(isHidden()).toBe(false)
+
+      makeClick()
+      expect(isHidden()).toBe(true)
+    })
+
   })
 
 
 
   describe('Initial Entries', () => {
     
-    beforeEach(done => loadFeed(0, () => done()))
+    beforeEach(done => loadFeed(0, done))
 
     it('should loadFeed insert data when called', () => {
-      const entry = document.getElementsByClassName('entry-link')
+      const entry = document.querySelectorAll('.feed .entry') 
 
       expect(entry.length > 0).toBe(true)
     })
   })
 
- 
   describe('New Feed Selection', () => {
     
     var before, after;
@@ -89,5 +93,4 @@ $(function() {
       expect(before).not.toBe(after)
     })
   })
-
 }());
