@@ -35,13 +35,8 @@ $(function() {
   describe('The menu', () => {
     const makeClick = () => document.querySelector('.menu-icon-link').click()
     
-    const getMenu = () => document.getElementsByTagName('body')[0].className
-
-    const isHidden = () => {
-      if(getMenu()) return true
-      return false
-    }
-    
+    const isHidden = () => document.querySelector('body').classList.contains('menu-hidden')
+ 
     it('Should start hiden', () => {
       hidden = isHidden() 
       expect(hidden).toBe(true)
@@ -50,7 +45,6 @@ $(function() {
 
     it('Should menu visibility swith when is clicked', () => {
       makeClick()
-
       expect(isHidden()).toBe(false)
 
       makeClick()
